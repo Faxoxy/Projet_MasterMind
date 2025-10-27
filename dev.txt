@@ -1,0 +1,164 @@
+Developpement
+
+## 1. **Cahier des Charges**
+- **Objectif** : Développer un jeu Mastermind en mode console, avec un menu, des règles de base et avancées, la sauvegarde/chargement de partie, et une interface claire.
+- **Contraintes minimales** :
+  - Jeu de base : 4 couleurs, 10 tentatives, pas de répétition, pas de chrono.
+  - Validation des entrées, affichage clair, historique des essais, README, code modulaire et compilable.
+- **Bonus** : IA, réseau, interface graphique, sauvegarde des scores, etc.
+
+---
+
+## 2. **Étapes Recommandées pour Démarrer**
+
+### a. **Analyse et Conception Générale**
+- **Extraire les données** :
+  - Quelles structures de données utiliser ?
+    - Tableaux pour les couleurs, les tentatives, les feedbacks.
+    - Structure pour représenter une partie (code secret, historique, règles, etc.).
+  - Quelles fonctionnalités principales ?
+    - Génération du code secret, saisie et validation des tentatives, calcul du feedback, affichage, sauvegarde/chargement, menu.
+
+- **Interface Homme-Machine (IHM)** :
+  - Menu principal : Nouveau jeu (base/avancé), Charger, Règles, Quitter.
+  - Affichage du plateau : tentatives passées, feedbacks, couleurs disponibles.
+
+- **Répartition des tâches** :
+  - Si tu es en équipe, répartis les modules (ex : un pour l’IHM, un pour la logique du jeu, un pour la sauvegarde).
+
+---
+
+### b. **Analyse et Conception Détaillée**
+- **Prototypes des fonctions** :
+  - Exemples :
+    ```c
+    void afficherMenu();
+    void initialiserPartie(int nbCouleurs, int nbTentatives);
+    void genererCodeSecret(char *code, int taille);
+    int verifierTentative(char *tentative, char *code, int *feedback);
+    void sauvegarderPartie(Partie *p, char *nomFichier);
+    Partie chargerPartie(char *nomFichier);
+    ```
+  - Pour chaque fonction, précise les paramètres d’entrée/sortie et le rôle.
+
+- **Algorithmes** :
+  - Comment générer le code secret ?
+  - Comment calculer le feedback (bien/mal placé) ?
+  - Comment valider une entrée utilisateur ?
+
+---
+
+### c. **Développement Modulaire**
+- **Organisation des fichiers** :
+  - `main.c` : point d’entrée, boucle principale.
+  - `jeu.h`/`jeu.c` : logique du jeu (génération du code, vérification des tentatives).
+  - `ihm.h`/`ihm.c` : affichage, menus, interaction utilisateur.
+  - `sauvegarde.h`/`sauvegarde.c` : fonctions de sauvegarde/chargement.
+  - `utils.h`/`utils.c` : fonctions utilitaires (couleurs, validation des entrées).
+
+- **Exemple de structure** :
+  ```c
+  typedef struct {
+      char *code;
+      int nbCouleurs;
+      int nbTentatives;
+      int tentativesRestantes;
+      Tentative *historique;
+  } Partie;
+  ```
+
+---
+
+### d. **Développement Incrémental**
+- **Commence par le jeu de base** :
+  1. Affiche un menu simple.
+  2. Implémente la génération du code secret.
+  3. Permets à l’utilisateur de faire une tentative et affiche le feedback.
+  4. Ajoute l’historique des tentatives.
+  5. Gère la victoire/défaite.
+
+- **Valide chaque étape** :
+  - Teste chaque fonction au fur et à mesure (ex : vérifie que le feedback est correct pour une tentative donnée).
+
+---
+
+### e. **Gestion des Entrées Utilisateur**
+- **Validation** :
+  - Vérifie que l’utilisateur entre un nombre valide de couleurs, que les tentatives sont du bon format, etc.
+  - Utilise des boucles pour redemander en cas d’erreur.
+
+- **Exemple** :
+  ```c
+  int lireEntierValide(int min, int max) {
+      int valeur;
+      while (scanf("%d", &valeur) != 1 || valeur < min || valeur > max) {
+          printf("Erreur, veuillez entrer un nombre entre %d et %d : ", min, max);
+          while (getchar() != '\n'); // Vider le buffer
+      }
+      return valeur;
+  }
+  ```
+
+---
+
+### f. **Affichage et Couleurs**
+- Utilise les **codes ANSI** pour les couleurs sous Linux/macOS :
+  ```c
+  printf("\033[31mR\033[0m \033[32mV\033[0m \033[34mB\033[0m \033[37mN\033[0m\n");
+  ```
+- Pour Windows, utilise la fonction `Color()` fournie dans le document ou une librairie comme `conio.h`.
+
+---
+
+### g. **Sauvegarde et Chargement**
+- **Format simple** :
+  - Fichier texte ou binaire.
+  - Exemple de contenu :
+    ```
+    4 // nbCouleurs
+    10 // tentativesRestantes
+    RVBJ // code secret crypté
+    RVBJ,1,1 // tentative, noirs, blancs
+    ...
+    ```
+
+- **Fonctions** :
+  - `fopen`, `fprintf`, `fscanf`, `fclose` pour les fichiers texte.
+  - `fwrite`, `fread` pour les fichiers binaires.
+
+---
+
+### h. **Tests et Débogage**
+- **Tests unitaires** :
+  - Teste chaque fonction isolément (ex : vérifie que `verifierTentative` retourne le bon feedback).
+- **Tests d’intégration** :
+  - Joue une partie complète pour vérifier que tout fonctionne ensemble.
+
+---
+
+### i. **Documentation**
+- **README.md** :
+  - Comment compiler (`gcc main.c jeu.c ihm.c -o mastermind`) ?
+  - Comment jouer ?
+  - Quelles sont les règles ?
+- **Commentaires dans le code** :
+  - Explique les algorithmes complexes, les structures, les paramètres des fonctions.
+
+---
+
+### j. **Bonus (si temps)**
+- **IA** : Implémente un algorithme simple pour que l’ordinateur devine le code.
+- **Réseau** : Utilise les sockets pour un mode 2 joueurs (plus avancé).
+- **Interface graphique** : Avec SDL ou ncurses (optionnel).
+
+---
+
+## 3. **Outils et Bonnes Pratiques**
+- **Git** :
+  - Crée un dépôt pour versionner ton code.
+  - Commite régulièrement avec des messages clairs.
+  - Utilise des branches pour les nouvelles fonctionnalités.
+- **Compilation** :
+  - Compile avec des warnings (`gcc -Wall -Wextra`) pour détecter les erreurs.
+- **Normes de codage** :
+  - Noms de variables/fonctions clairs, indentations cohérentes.
