@@ -1,0 +1,18 @@
+-> Générer un code secret 
+    1 couleur appartenant [1;6]
+    1 code : tab[4]
+    rand() % 6
+
+***
+-> Demander code
+    4 chiffres appartenant [1;6]
+
+-> Comparer codes avec avec code secret
+    Si les deux codes sont égaux (même couleurs et même positions) "Gagné" -> FIN
+    Sinon afficher "x bien positioné(s)" et "y de bonne couleur"
+
+(Ajouter un compteur bouvle while pour le nombre d'essais)
+
+Afficher les tentatives précédentes (tableau de 10 codes -> premier élément du tableau première tentative : 1er code)
+
+JUMP to ***
