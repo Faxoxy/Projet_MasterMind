@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build Mastermind",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "*.c",
+                "-o",
+                "Mastermind",
+                "-Wall",
+                "-g"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}
