@@ -79,7 +79,7 @@ int main() {
                 afficher_regles();
                 break;
             case 3:
-                printf("À bientôt !\n");
+                printf("A bientôt !\n");
                 break;
             default:
                 printf("Choix invalide. Veuillez entrer 1, 2 ou 3.\n");
