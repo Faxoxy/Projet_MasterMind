@@ -6,7 +6,7 @@
 
 //affiche les règles du jeu
 void afficher_regles() {
-    printf("\n=== RÈGLES DU MASTERMIND ===\n");
+    printf("\n=-= RÈGLES DU MASTERMIND =-=\n");
     printf("Le codeur choisit un code secret de 4 couleurs parmi : R, V, J, B, N, M\n");
     printf("Le joueur doit deviner ce code en 10 essais maximum.\n");
     printf("reponse :\n");
@@ -26,7 +26,7 @@ void jouer_partie() {
 
     //partie de test ou il donne le code avant ; a enlever pour le jeu de base
     printf("code secret a ne pas donner : ");
-    for (int i = 0; i<TAILLE_CODE; i++) {
+    for (int i = 0; i < TAILLE_CODE; i++) {
         printf("%c ", code[i]);
     }
     printf("\n");
@@ -36,7 +36,8 @@ void jouer_partie() {
         char proposition[TAILLE_CODE]; //tableau de caractère pour enregistrer la proposition du joueur
         lire_proposition(proposition); //lecture de la proposition
 
-        int bien_places = 0, mal_places = 0;
+        int bien_places = 0;
+        int mal_places = 0;
         verifier_proposition(code, proposition, &bien_places, &mal_places); //compare avec le code
 
         //sauvegarde de l'essai et de la reponse
@@ -69,15 +70,16 @@ int main() {
     int choix;
     do {
         //affichage du menu principal
-        printf("\n=== MENU PRINCIPAL ===\n\n");
+        printf("\n--- MENU PRINCIPAL ---\n\n");
         printf("1. Jouer une partie classique\n");
         printf("2. Afficher les règles\n");
         printf("3. Quitter\n");
         printf("Votre choix : ");
         scanf("%d", &choix);
         
+        //verification du choix, ne marche pas après une partie ni après les règles
         if (choix != 1 && choix !=2 && choix !=3){
-            printf("Entrez un chox valide");
+            printf("Entrez un chox valide \n");
             return 1;
         }
         
@@ -95,7 +97,7 @@ int main() {
             default:
                 printf("Choix invalide. Veuillez entrer 1, 2 ou 3.\n");
         }
-    } while (choix != 3); // Boucle jusqu'à ce que l'utilisateur quitte
+    } while (choix != 3); //boucle jusqu'à ce que l'utilisateur quitte
 
     return 0;
 }
