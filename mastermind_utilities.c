@@ -12,8 +12,8 @@ void generer_code(char code[]) {
     int i = 0;
     while (i < TAILLE_CODE) {
         int index = rand() % NB_COULEURS; //choix aléatoire d'une couleur
-        i = i+1;
         code[i] = COULEURS[index];  //on l'ajoute au code
+        i = i+1;
     }
 }
 
