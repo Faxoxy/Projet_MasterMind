@@ -5,7 +5,7 @@
 #include "mastermind_utilities.h"
 
 // Définition des couleurs disponibles
-const char COULEURS[NB_COULEURS] = {'R', 'V', 'J', 'B', 'N', 'M'}; //Rouge, Vert, Jaune, Bleu, Noir, Magenta
+const char COULEURS[NB_COULEURS] = {'R', 'V', 'J', 'B', 'N', 'M'}; //Rouge, Vert, Jaune, Bleu, Noir, Marron
 
 // Fonction qui génère un code secret aléatoire sans répétition
 void generer_code(char code[]) {

@@ -61,6 +61,7 @@ void jouer_partie() {
         printf("%c ", code[i]);
     }
     printf("\n");
+    return;
 }
 
 //main et menu interactif
