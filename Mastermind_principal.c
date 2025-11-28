@@ -25,7 +25,7 @@ void jouer_partie() {
     printf("\nUne nouvelle partie commence !\n");
 
     //partie de test ou il donne le code avant ; a enlever pour le jeu de base
-    printf("code secret a ne pas donner : ");
+    printf("\tcode secret a ne pas donner (uniquement pour les tests) : ");
     for (int i = 0; i < TAILLE_CODE; i++) {
         printf("%c ", code[i]);
     }
@@ -85,7 +85,7 @@ int main() {
         }
         
         //choix
-        switch (choix) {
+        switch(choix) {
             case 1:
                 jouer_partie();
                 break;
