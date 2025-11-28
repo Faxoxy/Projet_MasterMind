@@ -27,8 +27,8 @@ Utilisez la commande cd (Change Directory) pour atteindre le dossier contenant l
 exemple : "cd chemin/vers/le/dossier"
 
 Pour vérifier que vous êtes dans le bon dossier, utilisez :
-	•	macOS / Linux : ls
-	•	Windows : dir
+- macOS / Linux : ls
+- Windows : dir
 
 Vous devez voir apparaître les fichiers du projet, dont le Makefile.
 
