@@ -4,10 +4,10 @@
 #include <string.h>
 #include "mastermind_utilities.h"
 
-// Définition des couleurs disponibles
+//définition des couleurs disponibles
 const char COULEURS[NB_COULEURS] = {'R', 'V', 'J', 'B', 'N', 'M'}; //Rouge, Vert, Jaune, Bleu, Noir, Marron
 
-// Fonction qui génère un code secret aléatoire sans répétition
+//fonction pour génerer un code secret aléatoire sans répétition avec srand(time(NULL))
 void generer_code(char code[]) {
     int i = 0;
     while (i < TAILLE_CODE) {
@@ -21,7 +21,7 @@ void generer_code(char code[]) {
 void afficher_historique(char essais[][TAILLE_CODE], int reponse[][2], int nb_essais) {
     printf("\nHistorique des essais :\n");
     for (int i = 0; i < nb_essais; i++) {
-        printf("Essai %d : ", i + 1);
+        printf("Essai %d : ", i + 1); //affiche le numéro de l'essai
         for (int j = 0; j < TAILLE_CODE; j++) {
             printf("%c ", essais[i][j]); //affiche la proposition de l'essai i
         }
