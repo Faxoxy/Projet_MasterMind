@@ -96,9 +96,9 @@ int main() {
                 printf("A bientôt !\n");
                 break;
             default:
-                printf("Choix invalide. Veuillez entrer 1, 2 ou 3.\n");
+                printf("Choix invalide. Entrez 1, 2 ou 3.\n");
         }
-    } while (choix != 3); //boucle jusqu'à ce que l'utilisateur quitte
+    } while (choix != 3); //boucle jusqu'à ce que l'utilisateur quitte, il ne peut pas sortir du menu si il est pas dans le jeu ou sorti
 
     return 0;
 }
