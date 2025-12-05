@@ -46,7 +46,8 @@ Note pour les utilisateurs Windows
 
 make peut ne pas être installé par défaut.
 Pour l’utiliser, vous pouvez :
-- installer MinGW, ou
+- installer MinGW
+  ou
 - utiliser WSL (Windows Subsystem for Linux).
 
 
