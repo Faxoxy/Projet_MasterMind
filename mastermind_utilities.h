@@ -6,15 +6,6 @@
 #define TAILLE_CODE 4   //longueur du code secret
 #define NB_COULEURS 6   //nb de couleurs disponibles
 
-#define ROUGE     "\033[31m"
-#define VERT   "\033[32m"
-#define JAUNE  "\033[33m"
-#define BLEU    "\033[34m"
-#define NOIR  "\033[90m"
-#define MAGENTA "\033[35m"
-#define RESET   "\033[0m"
-
-
 
 
 #define ROUGE     "\033[31m"
