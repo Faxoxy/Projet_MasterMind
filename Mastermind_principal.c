@@ -24,7 +24,7 @@ void afficher_regles() {
 }
 
 //lance une partie de Mastermind
-void jouer_partie() {
+void jouer_partie() {   
     char code[TAILLE_CODE]; //code secret
     char essais[NB_ESSAIS_MAX][TAILLE_CODE]; //tableau pour sauvegarder les propositions à chaque essai
     int reponse[NB_ESSAIS_MAX][2]; //tableau pour sauvegarder les reponses obtenues à chaque essai
