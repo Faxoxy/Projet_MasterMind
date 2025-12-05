@@ -7,6 +7,15 @@
 #define NB_COULEURS 6   //nb de couleurs disponibles
 
 
+#define ROUGE     "\033[31m"
+#define VERT   "\033[32m"
+#define JAUNE  "\033[33m"
+#define BLEU    "\033[34m"
+#define NOIR  "\033[90m"
+#define MAGENTA "\033[35m"
+#define RESET   "\033[0m"
+
+
 //générateur de code secret aléatoire sans répétition
 void generer_code(char code[]);
 
@@ -18,5 +27,8 @@ void lire_proposition(char proposition[]);
 
 //compare la proposition du joueur avec le code secret et calcule les bien/mal placés avec des pointeurs
 void verifier_proposition(const char code[], const char proposition[], int *bien_places, int *mal_places);
+
+
+const char* col(char c);
 
 #endif

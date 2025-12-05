@@ -7,7 +7,7 @@
 //affiche les règles du jeu
 void afficher_regles() {
     printf("\n=-= RÈGLES DU MASTERMIND =-=\n");
-    printf("Le codeur choisit un code secret de 4 couleurs parmi : R, V, J, B, N, M\n");
+    printf("Le codeur choisit un code secret de 4 couleurs parmi : %sR%s, %sV%s, %sJ%s, %sB%s, %sN%s, %sM%s\n", ROUGE, RESET, VERT, RESET, JAUNE, RESET, BLEU, RESET, NOIR, RESET, MAGENTA, RESET);
     printf("Le joueur doit deviner ce code en 10 essais maximum.\n");
     printf("reponse :\n");
     printf(" - Bien placé : bonne couleur à la bonne position\n");
@@ -15,7 +15,7 @@ void afficher_regles() {
 }
 
 //lance une partie de Mastermind
-void jouer_partie() {
+void jouer_partie() {   
     char code[TAILLE_CODE]; //code secret
     char essais[NB_ESSAIS_MAX][TAILLE_CODE]; //tableau pour sauvegarder les propositions à chaque essai
     int reponse[NB_ESSAIS_MAX][2]; //tableau pour sauvegarder les reponses obtenues à chaque essai
@@ -27,7 +27,7 @@ void jouer_partie() {
     //partie de test ou il donne le code avant ; a enlever pour le jeu de base
     printf("\tcode secret a ne pas donner (uniquement pour les tests) : ");
     for (int i = 0; i < TAILLE_CODE; i++) {
-        printf("%c ", code[i]);
+        printf("%s%c%s ", col(code[i]), code[i], RESET);
     }
     printf("\n");
 
@@ -58,7 +58,7 @@ void jouer_partie() {
     //si le joueur n'a pas trouvé le code
     printf("Partie terminée ! Le code était : ");
     for (int i = 0; i < TAILLE_CODE; i++) {
-        printf("%c ", code[i]);
+        printf("%s%c%s ", col(code[i]), code[i], RESET);
     }
     printf("\n");
     return;
