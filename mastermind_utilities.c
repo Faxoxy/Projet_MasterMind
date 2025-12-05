@@ -4,8 +4,21 @@
 #include <string.h>
 #include "mastermind_utilities.h"
 
+
+const char* col(char c) {
+    switch(c) {
+        case 'R': return ROUGE;
+        case 'V': return VERT;
+        case 'J': return JAUNE;
+        case 'B': return BLEU;
+        case 'N': return NOIR;
+        case 'M': return MAGENTA;
+        default: return RESET;
+    }
+}
+
 //définition des couleurs disponibles
-const char COULEURS[NB_COULEURS] = {'R', 'V', 'J', 'B', 'N', 'M'}; //Rouge, Vert, Jaune, Bleu, Noir, Marron
+const char COULEURS[NB_COULEURS] = {'R', 'V', 'J', 'B', 'N', 'M'}; //Rouge, Vert, Jaune, Bleu, Noir, Magenta
 
 //fonction pour génerer un code secret aléatoire sans répétition avec srand(time(NULL))
 void generer_code(char code[]) {
@@ -23,7 +36,7 @@ void afficher_historique(char essais[][TAILLE_CODE], int reponse[][2], int nb_es
     for (int i = 0; i < nb_essais; i++) {
         printf("Essai %d : ", i + 1); //affiche le numéro de l'essai
         for (int j = 0; j < TAILLE_CODE; j++) {
-            printf("%c ", essais[i][j]); //affiche la proposition de l'essai i
+            printf("%s%c%s ", col(essais[i][j]), essais[i][j], RESET); //affiche la proposition de l'essai i
         }
         //affiche le nombre de bien placés et mal placés
         printf(" | Bien placés : %d | Mal placés : %d\n", reponse[i][0], reponse[i][1]);
@@ -32,7 +45,7 @@ void afficher_historique(char essais[][TAILLE_CODE], int reponse[][2], int nb_es
 
 //fonction qui lit une proposition du joueur
 void lire_proposition(char proposition[]) {
-    printf("Entrez votre proposition (%d lettres parmi R, V, J, B, N, M) : ", TAILLE_CODE);
+    printf("Entrez votre proposition (%d lettres parmi %sR%s, %sV%s, %sJ%s, %sB%s, %sN%s, %sM%s), en majuscule et sans espaces : ",TAILLE_CODE, ROUGE, RESET, VERT, RESET, JAUNE, RESET, BLEU, RESET, NOIR, RESET, MAGENTA, RESET);
     scanf("%s", proposition); //lecture de la chaîne de caractères du joueur
 }
 

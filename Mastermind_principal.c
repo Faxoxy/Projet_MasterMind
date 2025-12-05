@@ -3,11 +3,20 @@
 #include <time.h>
 #include <string.h>
 #include "mastermind_utilities.h"
+#include "mastermind_utilities.h"
+
+#define ROUGE     "\033[31m"
+#define VERT   "\033[32m"
+#define JAUNE  "\033[33m"
+#define BLEU    "\033[34m"
+#define NOIR  "\033[90m"
+#define MAGENTA "\033[35m"
+#define RESET   "\033[0m"
 
 //affiche les règles du jeu
 void afficher_regles() {
     printf("\n=-= RÈGLES DU MASTERMIND =-=\n");
-    printf("Le codeur choisit un code secret de 4 couleurs parmi : R, V, J, B, N, M\n");
+    printf("Le codeur choisit un code secret de 4 couleurs parmi : %sR%s, %sV%s, %sJ%s, %sB%s, %sN%s, %sM%s\n", ROUGE, RESET, VERT, RESET, JAUNE, RESET, BLEU, RESET, NOIR, RESET, MAGENTA, RESET);
     printf("Le joueur doit deviner ce code en 10 essais maximum.\n");
     printf("reponse :\n");
     printf(" - Bien placé : bonne couleur à la bonne position\n");
@@ -27,7 +36,7 @@ void jouer_partie() {
     //partie de test ou il donne le code avant ; a enlever pour le jeu de base
     printf("\tcode secret a ne pas donner (uniquement pour les tests) : ");
     for (int i = 0; i < TAILLE_CODE; i++) {
-        printf("%c ", code[i]);
+        printf("%s%c%s ", col(code[i]), code[i], RESET);
     }
     printf("\n");
 
@@ -58,7 +67,7 @@ void jouer_partie() {
     //si le joueur n'a pas trouvé le code
     printf("Partie terminée ! Le code était : ");
     for (int i = 0; i < TAILLE_CODE; i++) {
-        printf("%c ", code[i]);
+        printf("%s%c%s ", col(code[i]), code[i], RESET);
     }
     printf("\n");
     return;
@@ -66,7 +75,7 @@ void jouer_partie() {
 
 //main et menu interactif
 int main() {
-    srand(time(NULL)); //initialise le générateur aléatoire pour ne pas avoir deux fois la même valeur aléatoire
+    srand(time(NULL)); //initialise le générateur aléatoire pour ne pas avoir deux fois la même valeur aléatoire (réinitialise la seed)
 
     int choix;
     do {
