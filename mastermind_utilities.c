@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
 #include "mastermind_utilities.h"
 
 
@@ -43,26 +44,52 @@ void afficher_historique(char essais[][TAILLE_CODE], int reponse[][2], int nb_es
     }
 }
 
+
 //fonction qui lit une proposition du joueur
 void lire_proposition(char proposition[]) {
+    //on limite la lecture à 4 caractères (%4s) pour éviter le stack smashing
     printf("Entrez votre proposition (%d lettres parmi %sR%s, %sV%s, %sJ%s, %sB%s, %sN%s, %sM%s), en majuscule et sans espaces : ",TAILLE_CODE, ROUGE, RESET, VERT, RESET, JAUNE, RESET, BLEU, RESET, NOIR, RESET, MAGENTA, RESET);
     scanf("%s", proposition); //lecture de la chaîne de caractères du joueur
+
+    
+    for (int i = 0; proposition[i] != '\0'; i++) { //on parcourt ce qui vient d'être écrit et on met tout en majuscule on s'arrête au caractère invisible de fin de la chaine
+        proposition[i] = toupper(proposition[i]);   //on remplace
+    }
+    
+    //on vide le tampon clavier au cas où l'utilisateur a écrit "ROUGE" (5 lettres)
+    int c;  //variable temporaire pour stocker chaque caractère lu un par un
+    while ((c = getchar()) != '\n' && c != EOF);    //vide le "buffer" (mémoire tampon) en mangeant tous les caractères restants jusqu'à la touche Entrée
 }
 
 void verifier_proposition(const char code[], const char proposition[], int *bien_places, int *mal_places) {
-    int pion_deja_utilise[TAILLE_CODE] ={0};
+    *bien_places = 0;
+    *mal_places = 0;
+    
+    //tableaux pour marquer les pions déjà comptés
+    int code_utilise[TAILLE_CODE] = {0};
+    int prop_utilise[TAILLE_CODE] = {0};
+
+    //Test1 -> Bien placés (Noirs)
     for (int i = 0; i < TAILLE_CODE; i++) {
         if (proposition[i] == code[i]) {
-            (*bien_places) = (*bien_places) + 1;
-            pion_deja_utilise[i] = 1;
+            (*bien_places)++;
+            code_utilise[i] = 1; //ce pion du code est "grillé"
+            prop_utilise[i] = 1; //ce pion de la proposition est traité
         }
-        else {
-            for (int j = 0; j < TAILLE_CODE; j++) {
-                if (proposition[i] == code [j] && pion_deja_utilise[j] == 0) {
-                    (*mal_places) = (*mal_places) + 1;
-                    pion_deja_utilise[j] = 1;
-                }
+    }
+
+    //Test2 -> Mal placés (Blancs)
+    for (int i = 0; i < TAILLE_CODE; i++) {
+        if (prop_utilise[i] == 1) 
+            continue;   //si ce pion est déjà bien placé, on l'ignore
+
+        for (int j = 0; j < TAILLE_CODE; j++) {
+            //si le pion du code n'est pas utilisé ET que les couleurs correspondent
+            if (code_utilise[j] == 0 && proposition[i] == code[j]) {
+                (*mal_places)++;
+                code_utilise[j] = 1; //on marque ce pion du code comme utilisé
+                break; //on arrête de chercher pour ce pion de proposition j
             }
         }
-    }    
+    }
 }

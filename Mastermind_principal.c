@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
 #include "mastermind_utilities.h"
 #include "mastermind_utilities.h"
 
