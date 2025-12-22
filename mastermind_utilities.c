@@ -48,7 +48,7 @@ void afficher_historique(char essais[][TAILLE_CODE], int reponse[][2], int nb_es
 //fonction qui lit une proposition du joueur
 void lire_proposition(char proposition[]) {
     //on limite la lecture à 4 caractères (%4s) pour éviter le stack smashing
-    printf("Entrez votre proposition (%d lettres parmi %sR%s, %sV%s, %sJ%s, %sB%s, %sN%s, %sM%s), en majuscule et sans espaces : ",TAILLE_CODE, ROUGE, RESET, VERT, RESET, JAUNE, RESET, BLEU, RESET, NOIR, RESET, MAGENTA, RESET);
+    printf("Entrez votre proposition (%d lettres parmi %sR%s, %sV%s, %sJ%s, %sB%s, %sN%s, %sM%s), sans espaces : ",TAILLE_CODE, ROUGE, RESET, VERT, RESET, JAUNE, RESET, BLEU, RESET, NOIR, RESET, MAGENTA, RESET);
     scanf("%s", proposition); //lecture de la chaîne de caractères du joueur
 
     

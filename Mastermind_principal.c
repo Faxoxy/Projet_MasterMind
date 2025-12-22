@@ -4,7 +4,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "mastermind_utilities.h"
-#include "mastermind_utilities.h"
+#include "mastermind_storage.h"
 
 
 //affiche les règles du jeu
@@ -18,14 +18,32 @@ void afficher_regles() {
 }
 
 //lance une partie de Mastermind
-void jouer_partie() {   
+void jouer_partie(int charger) {   
     char code[TAILLE_CODE]; //code secret
     char essais[NB_ESSAIS_MAX][TAILLE_CODE]; //tableau pour sauvegarder les propositions à chaque essai
     int reponse[NB_ESSAIS_MAX][2]; //tableau pour sauvegarder les reponses obtenues à chaque essai
     int nb_essais = 0; //compteur d'essais
 
-    generer_code(code); //générateur de code secret
-    printf("\nUne nouvelle partie commence !\n");
+    
+    if (charger == 1) {
+        //charger = 1, le joueur veut CHARGER
+        // Si la fonction renvoie 0 (échec), on arrête tout et on retourne au menu
+        if (charger_partie(code, essais, reponse, &nb_essais) == 0) {
+            printf("Retour au menu principal.\n");
+            return;
+        }
+        
+        // Si on arrive ici, c'est que le chargement a réussi
+        printf("\n--- Partie reprise avec succès --- \n");
+        afficher_historique(essais, reponse, nb_essais);
+    } 
+    else {
+        // CAS : Le joueur veut une NOUVELLE PARTIE
+        generer_code(code);
+        nb_essais = 0;
+        printf("\nUne nouvelle partie commence !\n");
+    }
+
 
     //partie de test ou il donne le code avant ; a enlever pour le jeu de base
     printf("\tcode secret a ne pas donner (uniquement pour les tests) : ");
@@ -38,6 +56,12 @@ void jouer_partie() {
     while (nb_essais < NB_ESSAIS_MAX) {
         char proposition[TAILLE_CODE]; //tableau de caractère pour enregistrer la proposition du joueur
         lire_proposition(proposition); //lecture de la proposition
+
+        // Si la première lettre est S, on sauvegarde et on quitte
+        if (proposition[0] == 'S') {
+            sauvegarder_partie(code, essais, reponse, nb_essais);
+            return; // On retourne au menu
+        }
 
         int bien_places = 0;
         int mal_places = 0;
@@ -76,32 +100,39 @@ int main() {
         //affichage du menu principal
         printf("\n--- MENU PRINCIPAL ---\n\n");
         printf("1. Jouer une partie classique\n");
-        printf("2. Afficher les règles\n");
-        printf("3. Quitter\n");
+        printf("2. Charger une partie\n");
+        printf("3. Afficher les règles\n");
+        printf("4. Quitter\n");
         printf("Votre choix : ");
-        scanf("%d", &choix);
         
-        //verification du choix, ne marche pas après une partie ni après les règles
-        if (choix != 1 && choix !=2 && choix !=3){
-            printf("Entrez un chox valide \n");
-            return 1;
+        choix = 0;
+
+        // 2. Lecture sécurisée
+        if (scanf("%d", &choix) != 1) {
+            // Si l'utilisateur a tapé une lettre (ex: 'S'), scanf renvoie 0.
+            // Il faut alors vider le buffer pour "manger" cette lettre.
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
         }
-        
+
         //choix
         switch(choix) {
             case 1:
-                jouer_partie();
+                jouer_partie(0); // 0 = Nouvelle partie
                 break;
-            case 2:
+            case 2: // On imagine que tu as ajouté le printf "2. Charger" dans le menu au-dessus
+                jouer_partie(1); // 1 = Charger partie
+                break;
+            case 3: // Attention : c'était 2 avant, décale les numéros
                 afficher_regles();
                 break;
-            case 3:
+            case 4: // C'était 3 avant
                 printf("A bientôt !\n");
                 break;
             default:
-                printf("Choix invalide. Entrez 1, 2 ou 3.\n");
+                printf("Choix invalide.\n");
         }
-    } while (choix != 3); //boucle jusqu'à ce que l'utilisateur quitte, il ne peut pas sortir du menu si il est pas dans le jeu ou sorti
+    } while (choix != 4); //boucle jusqu'à ce que l'utilisateur quitte, il ne peut pas sortir du menu si il est pas dans le jeu ou sorti
 
     return 0;
 }
