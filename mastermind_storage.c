@@ -12,6 +12,9 @@ void sauvegarder_partie(const char code[], char essais[][TAILLE_CODE], int repon
         printf("Erreur : Impossible de créer le fichier.\n");
         return;
     }
+
+    //0_on écrit les 4 variables qui définissent les règles de la partie (le plus important) [nouveauté avec le mode avancé]
+    fprintf(fichier, "%d %d %d %d\n", nb_couleurs_partie, nb_essais_partie, mode_chrono, temps_imparti);
     
     //1_sauvegarde du Code Secret
     for(int i = 0; i < TAILLE_CODE; i++) {
@@ -19,7 +22,7 @@ void sauvegarder_partie(const char code[], char essais[][TAILLE_CODE], int repon
     }
     fprintf(fichier, "\n");
 
-    //2_sauvegarde du nombre d'essais
+    //2_sauvegarde du nombre d'essais pour reprendre au milieu de partie
     fprintf(fichier, "%d\n", nb_essais);
     
     //3_sauvegarde de l'historique
@@ -29,7 +32,7 @@ void sauvegarder_partie(const char code[], char essais[][TAILLE_CODE], int repon
     }
     
     fclose(fichier);
-    printf("Partie sauvegardée avec succès dans %s !\n", nom_fichier);
+    printf("Partie sauvegardée avec succès dans %s\n", nom_fichier);
 }
 
 //dans mastermind_storage.c
@@ -45,6 +48,9 @@ int charger_partie(char code[], char essais[][TAILLE_CODE], int reponse[][2], in
         return 0;
     }
     
+    //on récupère les règles du jeu sauvegardées
+    fscanf(fichier, "%d %d %d %d", &nb_couleurs_partie, &nb_essais_partie, &mode_chrono, &temps_imparti);
+
     //1_lecture directe dans le tableau 'code'
     for (int i = 0; i < TAILLE_CODE; i++) {
         fscanf(fichier, " %c", &code[i]); //l'espace avant %c est important
