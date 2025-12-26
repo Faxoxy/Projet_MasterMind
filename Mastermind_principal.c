@@ -6,17 +6,8 @@
 #include "mastermind_utilities.h"
 #include "mastermind_storage.h"
 #include "mastermind_advanced.h"
+#include "mastermind_rules.h"
 
-
-//affiche les règles du jeu
-void afficher_regles() {
-    printf("\n=-= REGLES DU MASTERMIND =-=\n");
-    printf("Le codeur choisit un code secret de 4 couleurs.\n");
-    printf("Parametres actuels : %d couleurs, %d tentatives max.\n", nb_couleurs_partie, nb_essais_partie);
-    printf("reponse :\n");
-    printf(" - Bien placé : bonne couleur à la bonne position\n");
-    printf(" - Mal placé : bonne couleur mais mauvaise position\n\n");
-}
 
 //lance une partie de Mastermind
 void jouer_partie(int charger) {   
@@ -29,13 +20,13 @@ void jouer_partie(int charger) {
     
     if (charger == 1) {
         //charger = 1, le joueur veut CHARGER
-        //si la fonction renvoie 0 (échec), on arrête tout et on retourne au menu
+        //si la fonction renvoie 0 (echec), on arrête tout et on retourne au menu
         if (charger_partie(code, essais, reponse, &nb_essais) == 0) {
             printf("Retour au menu principal.\n");
             return;
         }
         
-        //si on est la c'est que le chargement a réussi
+        //si on est la c'est que le chargement a reussi
         printf("\n--- Partie reprise avec succes --- \n");
         afficher_historique(essais, reponse, nb_essais);
     } 
@@ -58,12 +49,12 @@ void jouer_partie(int charger) {
 
     //boucle principale du jeu : on utilise la variable de configuration nb_essais_partie
     while (nb_essais < nb_essais_partie) {
-        char proposition[TAILLE_CODE]; //tableau de caractère pour enregistrer la proposition du joueur
+        char proposition[TAILLE_CODE]; //tableau de caractere pour enregistrer la proposition du joueur
         
         //lire_proposition renvoie maintenant le resultat du chrono
         int lecture_ok = lire_proposition(proposition); //lecture de la proposition
 
-        // Si la première lettre est S, on sauvegarde et on quitte
+        // Si la premiere lettre est S, on sauvegarde et on quitte
         if (proposition[0] == 'S') {
             sauvegarder_partie(code, essais, reponse, nb_essais);
             return; // On retourne au menu
@@ -82,11 +73,11 @@ void jouer_partie(int charger) {
 
         //sauvegarde de l'essai et de la reponse
         strncpy(essais[nb_essais], proposition, TAILLE_CODE); //permet de sauvegarder proposition dans le tableau essais avec une taille max
-        reponse[nb_essais][0] = bien_places; //sauveagrde le nb de bien placés pour cette proposition
-        reponse[nb_essais][1] = mal_places; //sauvegarde le nb de mal placés pour cette proposition
+        reponse[nb_essais][0] = bien_places; //sauveagrde le nb de bien places pour cette proposition
+        reponse[nb_essais][1] = mal_places; //sauvegarde le nb de mal places pour cette proposition
         nb_essais++;
 
-        afficher_historique(essais, reponse, nb_essais); //affiche les essais précédents
+        afficher_historique(essais, reponse, nb_essais); //affiche les essais precedents
 
         //condition de victoire
         if (bien_places == TAILLE_CODE) {
@@ -95,7 +86,7 @@ void jouer_partie(int charger) {
         }
     }
 
-    //si le joueur n'a pas trouvé le code
+    //si le joueur n'a pas trouve le code
     printf("Partie terminee ! Le code etait : ");
     for (int i = 0; i < TAILLE_CODE; i++) {
         printf("%s%c%s ", col(code[i]), code[i], RESET);
@@ -106,7 +97,7 @@ void jouer_partie(int charger) {
 
 //main et menu interactif
 int main() {
-    srand(time(NULL)); //initialise le générateur aléatoire pour ne pas avoir deux fois la même valeur aléatoire (réinitialise la seed)
+    srand(time(NULL)); //initialise le generateur aleatoire pour ne pas avoir deux fois la même valeur aleatoire (reinitialise la seed)
 
     int choix;
     do {
@@ -121,12 +112,12 @@ int main() {
         
         choix = 0;
 
-        //lecture sécurisée
+        //lecture securisee
         if (scanf("%d", &choix) != 1) {
-            //si l'utilisateur a tapé une lettre (ex: 'S'), scanf renvoie 0.
-            //il faut alors vider le buffer pour "manger" cette lettre.
+            //si l'utilisateur a tape autre chose (ex: 'TEST') scanf renvoie 0
+            //il faut alors vider le buffer pour "manger" cette lettre
             int c;
-            while ((c = getchar()) != '\n' && c != EOF);
+            while ((c = getchar()) != '\n' && c != EOF); //getchar force a lire les caracteres
         }
 
         //choix

@@ -13,7 +13,7 @@ void menu_avance() {
     printf("5. RESTAURER LE MODE \033[34mCLASSIQUE\033[0m  (4 couleurs, 10 tentatives)\n");
     printf("Votre choix : ");
     
-    if (scanf("%d", &choix) != 1) { // le =! 1 si le scanf à échoué a lire un nombre entier
+    if (scanf("%d", &choix) != 1) { // le =! 1 si le scanf à echoue a lire un nombre entier
         int c; 
         while ((c = getchar()) != '\n' && c != EOF); //chasse d'eau - EOF = End Of File
         choix = 0;
@@ -21,7 +21,7 @@ void menu_avance() {
 
     switch(choix) {
         case 1: 
-            nb_couleurs_partie = 3; //changement des variable propre au gameplay
+            nb_couleurs_partie = 3; //changement des variable propre au jeu
             nb_essais_partie = 20; 
             printf(">> Mode \033[32m FACILE \033[0m active.\n");
             break;

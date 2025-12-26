@@ -23,20 +23,20 @@ extern int temps_imparti;      //temps en secondes par tour
 #define RESET "\033[0m"
 
 
-//générateur de code secret aléatoire sans répétition
+//generateur de code secret aleatoire sans repetition
 void generer_code(char code[]);
 
-//affichage de l'historique des essais et des reponses associées
+//affichage de l'historique des essais et des reponses associees
 void afficher_historique(char essais[][TAILLE_CODE], int reponse[][2], int nb_essais);
 
-//lit la proposition du joueur depuis l'entrée clavier
+//lit la proposition du joueur depuis l'entree clavier
 //retourne 1 si valide, 0 si le temps est ecoule
 int lire_proposition(char proposition[]);
 
-//compare la proposition du joueur avec le code secret et calcule les bien/mal placés avec des pointeurs
+//compare la proposition du joueur avec le code secret et calcule les bien/mal places avec des pointeurs
 void verifier_proposition(const char code[], const char proposition[], int *bien_places, int *mal_places);
 
-//déclaration de la fonction de traduction de couleurs
+//declaration de la fonction de traduction de couleurs
 const char* col(char c);
 
 #endif

@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11
 
-SRC = Mastermind_principal.c mastermind_utilities.c mastermind_storage.c mastermind_advanced.c
+SRC = Mastermind_principal.c mastermind_utilities.c mastermind_storage.c mastermind_advanced.c mastermind_rules.c
 OBJ = $(SRC:.c=.o)
 EXEC = programme
 

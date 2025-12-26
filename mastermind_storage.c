@@ -9,11 +9,11 @@ void sauvegarder_partie(const char code[], char essais[][TAILLE_CODE], int repon
     
     FILE *fichier = fopen(nom_fichier, "w");
     if (fichier == NULL) {
-        printf("Erreur : Impossible de créer le fichier.\n");
+        printf("Erreur : Impossible de creer le fichier.\n");
         return;
     }
 
-    //0_on écrit les 4 variables qui définissent les règles de la partie (le plus important) [nouveauté avec le mode avancé]
+    //0_on ecrit les 4 variables qui definissent les regles de la partie (le plus important) [nouveaute avec le mode avance]
     fprintf(fichier, "%d %d %d %d\n", nb_couleurs_partie, nb_essais_partie, mode_chrono, temps_imparti);
     
     //1_sauvegarde du Code Secret
@@ -32,10 +32,9 @@ void sauvegarder_partie(const char code[], char essais[][TAILLE_CODE], int repon
     }
     
     fclose(fichier);
-    printf("Partie sauvegardée avec succès dans %s\n", nom_fichier);
+    printf("Partie sauvegardee avec succes dans %s\n", nom_fichier);
 }
 
-//dans mastermind_storage.c
 
 int charger_partie(char code[], char essais[][TAILLE_CODE], int reponse[][2], int *nb_essais) {
     char nom_fichier[100];
@@ -48,7 +47,7 @@ int charger_partie(char code[], char essais[][TAILLE_CODE], int reponse[][2], in
         return 0;
     }
     
-    //on récupère les règles du jeu sauvegardées
+    //on recupere les regles du jeu sauvegardees
     fscanf(fichier, "%d %d %d %d", &nb_couleurs_partie, &nb_essais_partie, &mode_chrono, &temps_imparti);
 
     //1_lecture directe dans le tableau 'code'
@@ -70,6 +69,6 @@ int charger_partie(char code[], char essais[][TAILLE_CODE], int reponse[][2], in
     }
     
     fclose(fichier);
-    printf("Partie chargée ! Reprise au tour %d.\n", *nb_essais + 1);
+    printf("Partie chargee ! Reprise au tour %d.\n", *nb_essais + 1);
     return 1;
 }
